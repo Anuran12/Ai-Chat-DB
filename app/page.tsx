@@ -1,7 +1,10 @@
+import Topbar from "@/components/Topbar";
+
 export default function Home() {
   return (
     <div>
-      <div>AI CHAT DB</div>
+      <Topbar />
+      <div></div>
     </div>
   );
 }

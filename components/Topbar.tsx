@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Logo from "@/public/Group 57.png";
+import Logo from "@/public/Logo.png";
 import Link from "next/link";
 
 export default function Topbar() {

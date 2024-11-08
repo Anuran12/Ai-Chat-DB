@@ -11,3 +11,10 @@ body {
   color: white;
   background: #1c1c1e;
 }
+
+.hero-bg {
+  background-image: url(../public/background1.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

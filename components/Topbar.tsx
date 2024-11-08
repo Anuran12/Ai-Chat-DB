@@ -13,15 +13,27 @@ export default function Topbar() {
         </h1>
       </div>
       <div>
-        <nav className="flex gap-5 text-[0.9rem] text-[#77798F]">
-          <Link href={"/"}>Home</Link>
-          <Link href={"/"}>Chat</Link>
-          <Link href={"/"}>Pricing</Link>
+        <nav className="flex gap-8 text-[0.9rem] text-[#77798F]">
+          <Link href={"/"} className="hover:text-white">
+            Home
+          </Link>
+          <Link href={"/"} className="hover:text-white">
+            Chat
+          </Link>
+          <Link href={"/"} className="hover:text-white">
+            Pricing
+          </Link>
         </nav>
       </div>
       <div className="flex gap-3">
-        <button>Sign In</button>
-        <button>Sign Up</button>
+        <button className=" border-2 border-[#2A2B3A] px-8 py-2.5 rounded-[50px]">
+          Sign In
+        </button>
+        <button className=" bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]">
+          <div className=" w-full h-full bg-[#1c1c1e] px-8 py-2.5 rounded-[48px]">
+            Sign Up
+          </div>
+        </button>
       </div>
     </div>
   );

@@ -4,9 +4,9 @@ import Logo from "@/public/Logo2.png";
 
 export default function About() {
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center px-[5vw]">
+    <div className="w-full h-[110vh] flex justify-center items-center px-[5vw]">
       <div className="bg-[radial-gradient(160%_85%_at_50%_75%,rgba(0,0,0,0)_10%,rgba(0,0,0,0.05)_35%,rgba(74,144,164,0.2)_55%,rgba(85,155,170,0.4)_65%,rgba(100,170,180,0.7)_75%,rgba(150,200,210,0.9)_85%,rgba(200,230,240,1)_95%,rgba(255,255,255,1)_100%)] w-full h-full rounded-[50px] flex flex-col items-center justify-center">
-        <div className="w-full h-[30%]"></div>
+        <div className="w-full h-[40%]"></div>
         <div className="bg-gradient-to-l from-[#4A90A4] to-[#4467FF] w-[85%] rounded-[30px] py-[2px] ">
           <div className="flex items-center gap-[1rem] bg-[#010314] rounded-[29px] w-full p-[3vw]">
             <div className="w-[65%] flex flex-col gap-[3vw]">

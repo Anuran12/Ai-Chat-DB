@@ -10,7 +10,7 @@ export default function About() {
         <div className="bg-gradient-to-l from-[#4A90A4] to-[#4467FF] w-[85%] rounded-[30px] py-[2px] ">
           <div className="flex items-center gap-[1rem] bg-[#010314] rounded-[29px] w-full p-[3vw]">
             <div className="w-[65%] flex flex-col gap-[3vw]">
-              <h1 className="font-bold text-[2rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text inline-block w-fit">
+              <h1 className="font-bold text-[2.8rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text inline-block w-fit">
                 Why choose AI Chat DB?
               </h1>
               <div className="grid grid-cols-3 gap-2.5">

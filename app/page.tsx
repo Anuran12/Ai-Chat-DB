@@ -2,6 +2,7 @@ import About from "@/components/About";
 import Faq from "@/components/Faq";
 import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
+import Ready from "@/components/Ready";
 import Topbar from "@/components/Topbar";
 import Works from "@/components/Works";
 
@@ -15,6 +16,7 @@ export default function Home() {
       <Works />
       <Pricing />
       <Faq />
+      <Ready />
       <div></div>
     </div>
   );

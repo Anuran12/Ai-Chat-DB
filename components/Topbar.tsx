@@ -20,7 +20,7 @@ export default function Topbar() {
           <Link href={"/"} className="hover:text-white">
             Chat
           </Link>
-          <Link href={"/"} className="hover:text-white">
+          <Link href={"/pricing"} className="hover:text-white">
             Pricing
           </Link>
         </nav>

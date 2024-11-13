@@ -7,14 +7,17 @@ import Pricing from "@/components/Pricing";
 import Ready from "@/components/Ready";
 import Topbar from "@/components/Topbar";
 import Works from "@/components/Works";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <>
       {session ? (
-        <div>CHAT</div>
+        <div>
+          CHAT
+          <button onClick={() => signOut()}>Logout</button>
+        </div>
       ) : (
         <div>
           <Topbar />

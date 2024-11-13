@@ -1,12 +1,21 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "@/public/Logo.png";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function SigninPage() {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) {
+      // Redirect to the homepage if the user is logged in
+      router.push("/");
+    }
+  }, [session, router]);
   return (
     <>
       {session ? (

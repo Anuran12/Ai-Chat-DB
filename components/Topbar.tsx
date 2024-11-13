@@ -26,9 +26,12 @@ export default function Topbar() {
         </nav>
       </div>
       <div className="flex gap-3">
-        <button className=" border-2 border-[#2A2B3A] px-8 py-2.5 rounded-[50px]">
+        <Link
+          href={"/signin"}
+          className=" border-2 border-[#2A2B3A] px-8 py-2.5 rounded-[50px]"
+        >
           Sign In
-        </button>
+        </Link>
         <button className=" bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]">
           <div className=" w-full h-full bg-[#1c1c1e] px-8 py-2.5 rounded-[48px]">
             Sign Up

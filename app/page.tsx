@@ -1,3 +1,4 @@
+"use client";
 import About from "@/components/About";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
@@ -6,19 +7,27 @@ import Pricing from "@/components/Pricing";
 import Ready from "@/components/Ready";
 import Topbar from "@/components/Topbar";
 import Works from "@/components/Works";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession();
   return (
-    <div>
-      <Topbar />
-      <Hero />
-      <div className="w-full h-[15vw]"></div>
-      <About />
-      <Works />
-      <Pricing />
-      <Faq />
-      <Ready />
-      <Footer />
-    </div>
+    <>
+      {session ? (
+        <div>CHAT</div>
+      ) : (
+        <div>
+          <Topbar />
+          <Hero />
+          <div className="w-full h-[15vw]"></div>
+          <About />
+          <Works />
+          <Pricing />
+          <Faq />
+          <Ready />
+          <Footer />
+        </div>
+      )}
+    </>
   );
 }

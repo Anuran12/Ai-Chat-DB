@@ -32,11 +32,14 @@ export default function Topbar() {
         >
           Sign In
         </Link>
-        <button className=" bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]">
+        <Link
+          href={"/signup"}
+          className=" bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]"
+        >
           <div className=" w-full h-full bg-[#1c1c1e] px-8 py-2.5 rounded-[48px]">
             Sign Up
           </div>
-        </button>
+        </Link>
       </div>
     </div>
   );

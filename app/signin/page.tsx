@@ -5,7 +5,7 @@ import Logo from "@/public/Logo.png";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 
-export default function signin() {
+export default function SigninPage() {
   const { data: session } = useSession();
   return (
     <>

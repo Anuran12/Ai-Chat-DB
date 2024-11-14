@@ -15,10 +15,6 @@ export default function Sidebar() {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <>
       {session ? (

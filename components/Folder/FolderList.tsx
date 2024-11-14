@@ -45,6 +45,7 @@ export default function FolderList({
 
   const onFolderClick = (index: number, item: FolderItemType) => {
     setActiveFolder(index);
+    console.log(activeFolder);
     // Constructing the path with query parameters inline
     router.push(`/folder/${item.id}?name=${encodeURIComponent(item.name)}`);
   };

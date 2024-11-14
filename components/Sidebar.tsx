@@ -264,12 +264,11 @@ export default function Sidebar() {
                 )}
               </div>
             </div>
-            {isModalOpen && (
-              <CreateFolderModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-              />
-            )}
+
+            <CreateFolderModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            />
           </div>
         </>
       ) : (

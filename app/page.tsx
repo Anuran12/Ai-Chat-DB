@@ -9,7 +9,7 @@ import Pricing from "@/components/Pricing";
 import Ready from "@/components/Ready";
 import Topbar from "@/components/Topbar";
 import Works from "@/components/Works";
-import { app } from "@/Config/firebaseConfig";
+import { app } from "@/Config/FirebaseConfig";
 import {
   collection,
   getDocs,

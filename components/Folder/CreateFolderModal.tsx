@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { app } from "@/Config/firebaseConfig";
+import { app } from "@/Config/FirebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 

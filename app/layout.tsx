@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SessionWrapper from "@/components/SessionWrapper";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +16,12 @@ export default function RootLayout({
   return (
     <SessionWrapper>
       <html lang="en">
-        <body className={`antialiased`}>{children}</body>
+        <body className={`antialiased`}>
+          <div className="flex">
+            <Sidebar />
+            {children}
+          </div>
+        </body>
       </html>
     </SessionWrapper>
   );

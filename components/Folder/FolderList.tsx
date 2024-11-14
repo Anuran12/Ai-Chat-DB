@@ -5,36 +5,43 @@ import FolderItemSmall from "./FolderItemSmall";
 import { useRouter } from "next/navigation";
 
 interface FolderItemType {
-  id: number;
+  id: string;
   name: string;
 }
+interface FolderListProps {
+  isBig?: boolean;
+  folderList: FolderItemType[];
+}
 
-export default function FolderList({ isBig = true }) {
+export default function FolderList({
+  isBig = true,
+  folderList,
+}: FolderListProps) {
   const [activeFolder, setActiveFolder] = useState<number | undefined>();
   const router = useRouter();
 
-  const folderList = [
-    {
-      id: 1,
-      name: "Folder 1 to Test Big Text",
-    },
-    {
-      id: 2,
-      name: "Folder 2",
-    },
-    {
-      id: 3,
-      name: "Folder 3",
-    },
-    {
-      id: 4,
-      name: "Folder 4",
-    },
-    {
-      id: 5,
-      name: "Folder 4",
-    },
-  ];
+  // const folderList = [
+  //   {
+  //     id: 1,
+  //     name: "Folder 1 to Test Big Text",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Folder 2",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Folder 3",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Folder 4",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Folder 4",
+  //   },
+  // ];
 
   const onFolderClick = (index: number, item: FolderItemType) => {
     setActiveFolder(index);

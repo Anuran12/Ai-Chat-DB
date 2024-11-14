@@ -3,7 +3,7 @@ import React from "react";
 
 interface FolderItemProps {
   folder: {
-    id: number;
+    id: string;
     name: string;
   };
 }

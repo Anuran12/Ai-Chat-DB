@@ -42,7 +42,7 @@ export default function FolderList({ isBig = true }) {
     router.push(`/folder/${item.id}?name=${encodeURIComponent(item.name)}`);
   };
   return (
-    <div className="p-5 mr-4 bg-[#010314] rounded-lg">
+    <div className="p-5 mr-4 bg-[#010314] rounded-[30px]">
       {isBig ? (
         <h2
           className="text-17px] 

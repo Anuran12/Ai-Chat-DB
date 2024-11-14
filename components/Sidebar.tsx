@@ -3,11 +3,22 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "@/public/Logo.png";
+import CreateFolderModal from "./Folder/CreateFolderModal";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState("files");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleNewFolder = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       {session ? (
@@ -118,7 +129,10 @@ export default function Sidebar() {
                   </>
                 ) : (
                   <>
-                    <button className="w-full bg-[#4A90A4] hover:bg-[#4A90A4]/90 py-2 px-4 rounded-[50px] flex gap-2 items-center justify-center">
+                    <button
+                      onClick={handleNewFolder}
+                      className="w-full bg-[#4A90A4] hover:bg-[#4A90A4]/90 py-2 px-4 rounded-[50px] flex gap-2 items-center justify-center"
+                    >
                       <svg
                         width="25px"
                         height="25px"
@@ -250,6 +264,12 @@ export default function Sidebar() {
                 )}
               </div>
             </div>
+            {isModalOpen && (
+              <CreateFolderModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+              />
+            )}
           </div>
         </>
       ) : (

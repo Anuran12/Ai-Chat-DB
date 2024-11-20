@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center px-[5vw]">
+    <div className="w-full h-[70vh] md:h-[100vh] flex justify-center items-center px-[5vw]">
       <div className="bg-[radial-gradient(160%_85%_at_50%_25%,rgba(0,0,0,0)_10%,rgba(0,0,0,0.05)_35%,rgba(74,144,164,0.2)_55%,rgba(85,155,170,0.4)_65%,rgba(100,170,180,0.7)_75%,rgba(150,200,210,0.9)_85%,rgba(200,230,240,1)_95%,rgba(255,255,255,1)_100%)] w-full h-full rounded-[50px] flex flex-col items-center justify-center">
         <div className="flex flex-col items-center gap-[1rem]">
           <div className="flex gap-3">
@@ -35,14 +35,14 @@ export default function Hero() {
               Welcome to AI Chat DB
             </h1>
           </div>
-          <h1 className="w-[60%] font-bold text-[3.7rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem]">
+          <h1 className="w-[90%] md:w-[60%] font-bold text-[8vw] md:text-[3.7vw] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-10 md:leading-[4.5rem]">
             Instantly build an AI chatbot with your knowledge base
           </h1>
-          <p className="text-[#77798F] w-[40%] text-center text-[1.2rem]">
+          <p className="text-[#77798F] w-[80%] md:w-[40%] text-center text-[1.2rem]">
             Transform your data into an intelligent conversation partner.
             Upload, chat, and get insights in minutes.
           </p>
-          <div className="flex gap-3 mt-4">
+          <div className="flex flex-col md:flex-row gap-3 mt-4">
             <button className=" bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]">
               <div className=" w-full h-full bg-[#1c1c1e] px-8 py-3 rounded-[48px]">
                 Get started for free

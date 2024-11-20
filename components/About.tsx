@@ -4,17 +4,17 @@ import Logo from "@/public/Logo2.png";
 
 export default function About() {
   return (
-    <div className="w-full h-[110vh] flex justify-center items-center px-[5vw]">
+    <div className="w-full md:h-[110vh] flex justify-center items-center px-[5vw]">
       <div className="bg-[radial-gradient(160%_85%_at_50%_75%,rgba(0,0,0,0)_10%,rgba(0,0,0,0.05)_35%,rgba(74,144,164,0.2)_55%,rgba(85,155,170,0.4)_65%,rgba(100,170,180,0.7)_75%,rgba(150,200,210,0.9)_85%,rgba(200,230,240,1)_95%,rgba(255,255,255,1)_100%)] w-full h-full rounded-[50px] flex flex-col items-center justify-center">
         <div className="w-full h-[40%]"></div>
-        <div className="bg-gradient-to-l from-[#4A90A4] to-[#4467FF] w-[85%] rounded-[30px] py-[2px] ">
-          <div className="flex items-center gap-[1rem] bg-[#010314] rounded-[29px] w-full p-[3vw]">
-            <div className="w-[65%] flex flex-col gap-[3vw]">
-              <h1 className="font-bold text-[2.8rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text inline-block w-fit">
+        <div className="bg-gradient-to-l from-[#4A90A4] to-[#4467FF] w-full md:w-[85%] rounded-[30px] py-[2px] ">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-[1rem] bg-[#010314] rounded-[29px] w-full p-[3vw]">
+            <div className="w-full md:w-[65%] flex flex-col gap-[3vw]">
+              <h1 className="font-bold text-[7vw] md:text-[2.8vw] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text inline-block w-fit">
                 Why choose AI Chat DB?
               </h1>
-              <div className="grid grid-cols-3 gap-2.5">
-                <div className="bg-white/15 p-5 rounded-[35px] flex flex-col gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 px-[5vw]">
+                <div className="bg-white/15 p-5 rounded-[35px] flex flex-col items-center md:items-start gap-3 w-full">
                   <div className="bg-[#4A90A4]/30 w-fit p-3 rounded-[20px] aspect-square flex justify-center items-center">
                     <svg
                       width="50"
@@ -33,15 +33,14 @@ export default function About() {
                     </svg>
                   </div>
                   <h1 className="text-[1.85rem] font-bold leading-8">
-                    Quick
-                    <br />
+                    Quick <br className="hidden md:block" />
                     Setup
                   </h1>
-                  <p className="text-white/70 leading-5">
+                  <p className="text-white/70 leading-5 text-center md:text-left">
                     Quick and easy integration with your existing documentation.
                   </p>
                 </div>
-                <div className="bg-white/15 p-5 rounded-[35px] flex flex-col gap-3">
+                <div className="bg-white/15 p-5 rounded-[35px] flex flex-col items-center md:items-start gap-3 w-full">
                   <div className="bg-[#4A90A4]/30 w-fit p-3 rounded-[20px] aspect-square flex justify-center items-center">
                     <svg
                       width="46"
@@ -60,15 +59,14 @@ export default function About() {
                     </svg>
                   </div>
                   <h1 className="text-[1.85rem] font-bold leading-8">
-                    Enterprise
-                    <br />
+                    Enterprise <br className="hidden md:block" />
                     Security
                   </h1>
-                  <p className="text-white/70 leading-5">
+                  <p className="text-white/70 leading-5 text-center md:text-left">
                     Your data is encrypted and secure with SOC 2 compliance.
                   </p>
                 </div>
-                <div className="bg-white/15 p-5 rounded-[35px] flex flex-col gap-3">
+                <div className="bg-white/15 p-5 rounded-[35px] flex flex-col items-center md:items-start gap-3 w-full">
                   <div className="bg-[#4A90A4]/30 w-fit p-3 rounded-[20px] aspect-square flex justify-center items-center">
                     <svg
                       width="40"
@@ -84,11 +82,10 @@ export default function About() {
                     </svg>
                   </div>
                   <h1 className="text-[1.85rem] font-bold leading-8">
-                    Lightning
-                    <br />
+                    Lightning <br className="hidden md:block" />
                     Fast
                   </h1>
-                  <p className="text-white/70 leading-5">
+                  <p className="text-white/70 leading-5 text-center md:text-left">
                     Powered by cutting-edge AI for instant responses.
                   </p>
                 </div>

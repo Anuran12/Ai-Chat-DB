@@ -41,7 +41,7 @@ export default function Faq() {
       <h1 className="inline-block w-fit font-bold text-[2.8rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem]">
         FAQ&#39;s
       </h1>
-      <section className="text-white py-10 px-[9vw] w-full">
+      <section className="text-white py-10 px-[5vw] md:px-[9vw] w-full">
         <div className="mx-auto">
           {faqs.map((faq, index) => (
             <div key={faq.id} className="border border-[#2A2B3A]">

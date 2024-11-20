@@ -6,17 +6,17 @@ import ProcessingImg from "@/public/Processing.png";
 export default function Works() {
   return (
     <div className="flex flex-col justify-center items-center pt-[8vw] w-full px-[5vw] mb-20">
-      <h1 className="inline-block w-fit font-bold text-[2.8rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem]">
+      <h1 className="inline-block w-fit font-bold text-[8vw] md:text-[2.8vw] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center md:leading-[4.5rem]">
         Build Your AI Assistant in Minutes
       </h1>
-      <div className=" grid grid-cols-2 gap-7 justify-center items-center w-[85%]">
-        <div className="bg-gradient-to-l from-[#4A90A4] to-[#4467FF] rounded-[30px] py-[2px] col-span-2 shadow-[0px_4px_100px_rgba(102,77,255,0.2)]">
-          <div className="flex items-center gap-[1rem] bg-[#010314] rounded-[29px] w-full p-[3vw]">
-            <div className="w-[40%]">
+      <div className=" grid grid-cols-1 md:grid-cols-2 gap-7 justify-center items-center md:w-[85%]">
+        <div className="bg-gradient-to-l from-[#4A90A4] to-[#4467FF] rounded-[30px] py-[2px] md:col-span-2 shadow-[0px_4px_100px_rgba(102,77,255,0.2)]">
+          <div className="flex flex-col md:flex-row items-center gap-[1rem] bg-[#010314] rounded-[29px] w-full p-[3vw]">
+            <div className="w-full md:w-[40%]">
               <Image src={UploadImg} alt="" />
             </div>
-            <div className="w-[60%] flex justify-center items-center">
-              <div className="w-[75%] flex flex-col">
+            <div className="w-full md:w-[60%] flex justify-center items-center pb-5 md:pb-0">
+              <div className="w-full md:w-[75%] flex flex-col">
                 <div className="flex gap-3">
                   <svg
                     width="28"
@@ -92,7 +92,7 @@ export default function Works() {
                     How It Works
                   </h1>
                 </div>
-                <h1 className="font-bold text-[2rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem] inline-block w-fit">
+                <h1 className="font-bold text-[2rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center md:leading-[4.5rem] inline-block w-fit">
                   AI Processes Your Data
                 </h1>
                 <p className="text-[#77798F] text-left text-[1.2rem]">

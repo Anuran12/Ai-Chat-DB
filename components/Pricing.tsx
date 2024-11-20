@@ -7,12 +7,12 @@ export default function Pricing() {
         <h1 className="inline-block w-fit font-bold text-[2.8rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem]">
           Choose Your Plan
         </h1>
-        <p className="text-[#9CA3AF]">
+        <p className="text-[#9CA3AF] text-center">
           Select the perfect plan for your needs. Upgrade or downgrade at any
           time.
         </p>
       </div>
-      <div className="grid grid-cols-3 w-full gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-5">
         <div className="rounded-[29px] bg-[radial-gradient(160%_85%_at_50%_25%,rgba(0,0,0,0)_10%,rgba(0,0,0,0.05)_35%,rgba(74,144,164,0.2)_55%,rgba(85,155,170,0.4)_65%,rgba(100,170,180,0.7)_75%,rgba(150,200,210,0.9)_85%,rgba(200,230,240,1)_95%,rgba(255,255,255,1)_100%)]">
           <div className="w-full bg-white/5 flex flex-col gap-2 p-3 rounded-[50px]">
             <div className="flex flex-col gap-2 p-8">

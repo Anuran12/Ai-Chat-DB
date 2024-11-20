@@ -29,16 +29,16 @@ export default function SigninPage() {
             </h1>
           </div>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="text-[3rem] bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] text-transparent bg-clip-text text-center inline-block w-fit font-bold">
+            <h1 className=" text-[8vw] md:text-[3vw] bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] text-transparent bg-clip-text text-center inline-block w-fit font-bold">
               WELCOME BACK!
             </h1>
-            <p className="text-[#9CA3AF]">
+            <p className="text-[#9CA3AF] text-center w-[75%] md:w-full">
               Access your AI assistant and continue managing your data
               efficiently.
             </p>
           </div>
-          <div className="w-[50%] flex flex-col gap-5 justify-center items-center bg-[radial-gradient(100%_100%_at_50%_50%,rgba(255,255,255,0)_30%,rgba(74,144,164,0.3)_85%)] rounded-[50px] p-10">
-            <h1 className="font-bold text-[2rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem] inline-block w-fit">
+          <div className="w-[95%] md:w-[50%] flex flex-col gap-5 justify-center items-center bg-[radial-gradient(100%_100%_at_50%_50%,rgba(255,255,255,0)_30%,rgba(74,144,164,0.3)_85%)] rounded-[50px] p-10">
+            <h1 className="font-bold text-[2rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center md:leading-[4.5rem] inline-block w-fit">
               Sign in with your account
             </h1>
             <button

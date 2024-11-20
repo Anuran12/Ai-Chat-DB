@@ -93,36 +93,43 @@ export default function Topbar() {
       </div>
 
       {/* Mobile Menu */}
+
       {isMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-[#1c1c1e] border-t border-[#2A2B3A] md:hidden">
-          <nav className="flex flex-col p-4 gap-4 text-[#77798F]">
-            <Link href={"/"} className="hover:text-white py-2">
-              Home
-            </Link>
-            <Link href={"/"} className="hover:text-white py-2">
-              Chat
-            </Link>
-            <Link href={"/pricing"} className="hover:text-white py-2">
-              Pricing
-            </Link>
-            <div className="flex flex-col gap-3 pt-4">
-              <Link
-                href={"/signin"}
-                className="border-2 border-[#2A2B3A] px-8 py-2.5 rounded-[50px] text-center"
-              >
-                Sign In
+        <>
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 animate-fade-in"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <div className="absolute top-full left-0 right-0 bg-[#1c1c1e] z-50 border-t border-[#2A2B3A] md:hidden">
+            <nav className="flex flex-col p-4 gap-4 text-[#77798F]">
+              <Link href={"/"} className="hover:text-white py-2">
+                Home
               </Link>
-              <Link
-                href={"/signup"}
-                className="bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]"
-              >
-                <div className="w-full h-full bg-[#1c1c1e] px-8 py-2.5 rounded-[48px] text-center">
-                  Sign Up
-                </div>
+              <Link href={"/"} className="hover:text-white py-2">
+                Chat
               </Link>
-            </div>
-          </nav>
-        </div>
+              <Link href={"/pricing"} className="hover:text-white py-2">
+                Pricing
+              </Link>
+              <div className="flex flex-col gap-3 pt-4">
+                <Link
+                  href={"/signin"}
+                  className="border-2 border-[#2A2B3A] px-8 py-2.5 rounded-[50px] text-center"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href={"/signup"}
+                  className="bg-gradient-to-tl from-[#4A90A4] to-[#4467FF] p-[2px] rounded-[50px] drop-shadow-[0_0px_7px_rgba(119,68,255,0.5)]"
+                >
+                  <div className="w-full h-full bg-[#1c1c1e] px-8 py-2.5 rounded-[48px] text-center">
+                    Sign Up
+                  </div>
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </>
       )}
     </div>
   );

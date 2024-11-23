@@ -4,15 +4,20 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "@/public/Logo.png";
 import CreateFolderModal from "./Folder/CreateFolderModal";
+import UploadFileModal from "./File/UploadFileModal";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState("files");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFileModalOpen, setIsFileModalOpen] = useState(false);
 
   const handleNewFolder = () => {
     setIsModalOpen(true);
+  };
+  const handleNewFile = () => {
+    setIsFileModalOpen(true);
   };
 
   return (
@@ -145,7 +150,10 @@ export default function Sidebar() {
                       </svg>
                       <span className="font-semibold">New Folder</span>
                     </button>
-                    <button className="w-full bg-[#4A90A4] hover:bg-[#4A90A4]/90 py-2 px-4 rounded-[50px] flex gap-2 items-center justify-center">
+                    <button
+                      onClick={handleNewFile}
+                      className="w-full bg-[#4A90A4] hover:bg-[#4A90A4]/90 py-2 px-4 rounded-[50px] flex gap-2 items-center justify-center"
+                    >
                       <svg
                         width="25px"
                         height="25px"
@@ -264,6 +272,10 @@ export default function Sidebar() {
             <CreateFolderModal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
+            />
+            <UploadFileModal
+              isOpen={isFileModalOpen}
+              onClose={() => setIsFileModalOpen(false)}
             />
           </div>
         </>

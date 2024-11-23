@@ -1,28 +1,25 @@
 import { doc, getFirestore, setDoc } from "firebase/firestore";
-import React, { useContext } from "react";
+import React from "react";
 import { app } from "../../Config/FirebaseConfig";
 import { useSession } from "next-auth/react";
-import {
-  ParentFolderIdContext,
-  useParentFolder,
-} from "../../context/ParentFolderIdContext";
-import { ShowToastContext, useToast } from "../../context/ShowToastContext";
+import { useParentFolder } from "../../context/ParentFolderIdContext";
+import { useToast } from "../../context/ShowToastContext";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 interface CreateFileModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-interface FileData {
-  name: string;
-  type: string;
-  size: number;
-  modifiedAt: number;
-  createdBy: string | null | undefined;
-  parentFolderId: string;
-  imageUrl: string;
-  id: number;
-}
+// interface FileData {
+//   name: string;
+//   type: string;
+//   size: number;
+//   modifiedAt: number;
+//   createdBy: string | null | undefined;
+//   parentFolderId: string;
+//   imageUrl: string;
+//   id: number;
+// }
 
 function UploadFileModal({ isOpen, onClose }: CreateFileModalProps) {
   const { data: session } = useSession();

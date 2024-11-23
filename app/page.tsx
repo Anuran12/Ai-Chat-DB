@@ -3,6 +3,7 @@ import About from "@/components/About";
 import Faq from "@/components/Faq";
 import FileList from "@/components/File/FileList";
 import FolderList from "@/components/Folder/FolderList";
+import { useFolderContext } from "@/components/FolderContext";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
@@ -29,19 +30,16 @@ export default function Home() {
   const db = getFirestore(app);
   const { data: session } = useSession();
   const [folderList, setFolderList] = useState<Folder[]>([]);
+  const { refreshFolders } = useFolderContext();
 
   useEffect(() => {
-    console.log("User Session");
-    if (!session) {
-    } else {
-      setFolderList([]);
-      getFolderList();
-      // getFileList();
-
-      console.log("User Session", session.user);
+    if (session?.user) {
+      const fetchFolders = async () => {
+        await getFolderList();
+      };
+      fetchFolders();
     }
-    // setParentFolderId(0);
-  }, [session]);
+  }, [session, refreshFolders]);
 
   const getFolderList = async () => {
     setFolderList([]);

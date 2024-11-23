@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { app } from "@/Config/FirebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
+import { useFolderContext } from "../FolderContext";
 
 interface CreateFolderModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ export default function CreateFolderModal({
     message: "",
     visible: false,
   });
+  const { refreshFolders } = useFolderContext();
 
   const db = getFirestore(app);
 
@@ -31,6 +33,7 @@ export default function CreateFolderModal({
       //   parentFolderId: parentFolderId,
     });
     // setShowToastMsg("Folder Created!");
+    refreshFolders();
     showToast(`Folder "${folderName}" created successfully`);
     onClose();
   };

@@ -5,14 +5,14 @@ import React from "react";
 
 export default function PricingPage() {
   return (
-    <div>
+    <div className="w-full">
       <Topbar />
       <Pricing />
       <div className="flex flex-col mt-10 gap-10 w-full justify-center items-center">
         <h1 className="inline-block w-fit font-bold text-[2.8rem] bg-[radial-gradient(100%_100%_at_50%_50%,rgba(229,229,229,1)_30%,rgba(255,255,255,0.2)_85%)] text-transparent bg-clip-text text-center leading-[4.5rem]">
           Support File Types
         </h1>
-        <div className="grid grid-cols-3 w-[80%]">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-[80%] gap-8 md:gap-0">
           <div className="flex flex-col items-center gap-5">
             <div className="flex gap-3 items-center font-bold text-[1.8rem]">
               <svg

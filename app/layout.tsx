@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SessionWrapper from "@/components/SessionWrapper";
 import Sidebar from "@/components/Sidebar";
+import { FolderProvider } from "@/components/FolderContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,14 +16,16 @@ export default function RootLayout({
 }>) {
   return (
     <SessionWrapper>
-      <html lang="en">
-        <body className={`antialiased`}>
-          <div className="flex">
-            <Sidebar />
-            {children}
-          </div>
-        </body>
-      </html>
+      <FolderProvider>
+        <html lang="en">
+          <body className={`antialiased`}>
+            <div className="flex">
+              <Sidebar />
+              {children}
+            </div>
+          </body>
+        </html>
+      </FolderProvider>
     </SessionWrapper>
   );
 }

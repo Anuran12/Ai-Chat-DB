@@ -3,7 +3,7 @@ import About from "@/components/About";
 import Faq from "@/components/Faq";
 import FileList from "@/components/File/FileList";
 import FolderList from "@/components/Folder/FolderList";
-import { useFolderContext } from "@/components/FolderContext";
+import { useFolderContext } from "@/context/FolderContext";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";

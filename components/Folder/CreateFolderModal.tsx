@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { app } from "@/Config/FirebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import { useFolderContext } from "../FolderContext";
+import { useFolderContext } from "@/context/FolderContext";
 import { useToast } from "@/context/ShowToastContext";
+import { useParentFolder } from "@/context/ParentFolderIdContext";
 
 interface CreateFolderModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ export default function CreateFolderModal({
   const [folderName, setFolderName] = useState("");
   const { setShowToastMsg } = useToast();
   const { refreshFolders } = useFolderContext();
+  const { parentFolderId, setParentFolderId } = useParentFolder();
 
   const db = getFirestore(app);
 
@@ -28,6 +30,7 @@ export default function CreateFolderModal({
         name: folderName,
         id: docId,
         createBy: session?.user?.email,
+        parentFolderId: parentFolderId,
       });
 
       setShowToastMsg({

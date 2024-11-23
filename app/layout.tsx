@@ -1,8 +1,6 @@
+import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
 import "./globals.css";
-import SessionWrapper from "@/components/SessionWrapper";
-import Sidebar from "@/components/Sidebar";
-import { FolderProvider } from "@/components/FolderContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -11,21 +9,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <SessionWrapper>
-      <FolderProvider>
-        <html lang="en">
-          <body className={`antialiased`}>
-            <div className="flex">
-              <Sidebar />
-              {children}
-            </div>
-          </body>
-        </html>
-      </FolderProvider>
-    </SessionWrapper>
+    <html lang="en">
+      <body className="antialiased">
+        <ClientLayout>{children}</ClientLayout>
+      </body>
+    </html>
   );
 }

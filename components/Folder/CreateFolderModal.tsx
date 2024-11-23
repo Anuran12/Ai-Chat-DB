@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { app } from "@/Config/FirebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useFolderContext } from "../FolderContext";
+import { useToast } from "@/context/ShowToastContext";
 
 interface CreateFolderModalProps {
   isOpen: boolean;
@@ -16,39 +17,33 @@ export default function CreateFolderModal({
   const docId = Date.now().toString();
   const { data: session } = useSession();
   const [folderName, setFolderName] = useState("");
-  const [toast, setToast] = useState<{ message: string; visible: boolean }>({
-    message: "",
-    visible: false,
-  });
+  const { setShowToastMsg } = useToast();
   const { refreshFolders } = useFolderContext();
 
   const db = getFirestore(app);
 
   const onCreate = async () => {
-    console.log(folderName);
-    await setDoc(doc(db, "Folders", docId), {
-      name: folderName,
-      id: docId,
-      createBy: session?.user?.email,
-      //   parentFolderId: parentFolderId,
-    });
-    // setShowToastMsg("Folder Created!");
-    refreshFolders();
-    showToast(`Folder "${folderName}" created successfully`);
-    onClose();
-  };
-  const showToast = (message: string) => {
-    setToast({ message, visible: true });
-  };
+    try {
+      await setDoc(doc(db, "Folders", docId), {
+        name: folderName,
+        id: docId,
+        createBy: session?.user?.email,
+      });
 
-  useEffect(() => {
-    if (toast.visible) {
-      const timer = setTimeout(() => {
-        setToast({ message: "", visible: false });
-      }, 3000); // 3 seconds
-      return () => clearTimeout(timer);
+      setShowToastMsg({
+        message: "Folder Created!",
+        type: "success",
+      });
+
+      refreshFolders();
+      onClose();
+    } catch (error) {
+      setShowToastMsg({
+        message: "Error creating folder",
+        type: "error",
+      });
     }
-  }, [toast.visible]);
+  };
 
   const handleClose = () => {
     setFolderName("");
@@ -111,29 +106,6 @@ export default function CreateFolderModal({
           </div>
         </div>
       </div>
-      {toast.visible && (
-        <div
-          className="fixed z-50 bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg flex items-center"
-          role="alert"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
-
-          <span>{toast.message}</span>
-        </div>
-      )}
     </div>
   );
 }

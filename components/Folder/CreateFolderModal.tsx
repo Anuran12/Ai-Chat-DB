@@ -42,7 +42,7 @@ export default function CreateFolderModal({
       onClose();
     } catch (error) {
       setShowToastMsg({
-        message: "Error creating folder",
+        message: `Error creating folder ${error}`,
         type: "error",
       });
     }

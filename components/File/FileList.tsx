@@ -1,37 +1,49 @@
 import React from "react";
 import FileItem from "./FileItem";
 
-export default function FileList() {
-  const fileList = [
-    {
-      id: 1,
-      name: "UX Principal.docx",
-      type: "doc",
-      size: "6272 kB",
-      modifiedAt: "Nov 23,2020",
-    },
-    {
-      id: 2,
-      name: "Data Structure.pdf",
-      type: "pdf",
-      size: "672 kB",
-      modifiedAt: "Nov 23,2022",
-    },
-    {
-      id: 3,
-      name: "smaple Image.png",
-      type: "image",
-      size: "400 kB",
-      modifiedAt: "Nov 23,2023",
-    },
-    {
-      id: 4,
-      name: "React Principal.docx",
-      type: "doc",
-      size: "6272 kB",
-      modifiedAt: "Nov 23,2020",
-    },
-  ];
+type File = {
+  id: number;
+  name: string;
+  type: string;
+  size: string;
+  modifiedAt: string;
+};
+
+interface FileListProps {
+  fileList: File[];
+}
+
+export default function FileList({ fileList }: FileListProps) {
+  // const fileList = [
+  //   {
+  //     id: 1,
+  //     name: "UX Principal.docx",
+  //     type: "doc",
+  //     size: "6272 kB",
+  //     modifiedAt: "Nov 23,2020",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Data Structure.pdf",
+  //     type: "pdf",
+  //     size: "672 kB",
+  //     modifiedAt: "Nov 23,2022",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "smaple Image.png",
+  //     type: "image",
+  //     size: "400 kB",
+  //     modifiedAt: "Nov 23,2023",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "React Principal.docx",
+  //     type: "doc",
+  //     size: "6272 kB",
+  //     modifiedAt: "Nov 23,2020",
+  //   },
+  // ];
   return (
     <div
       className="bg-[#010314] mt-5 p-5 mr-4

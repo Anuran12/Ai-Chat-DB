@@ -1,3 +1,6 @@
+import { app } from "@/Config/FirebaseConfig";
+import { useToast } from "@/context/ShowToastContext";
+import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 import React from "react";
 
 interface File {
@@ -13,6 +16,17 @@ interface FileItemProps {
 }
 
 export default function FileItem({ file }: FileItemProps) {
+  const db = getFirestore(app);
+  const image = "/" + file.type + ".png";
+  const { setShowToastMsg } = useToast();
+  const deleteFile = async (file: File) => {
+    await deleteDoc(doc(db, "files", file.id.toString())).then((resp) => {
+      setShowToastMsg({
+        message: "File Deleted!!!",
+        type: "success",
+      });
+    });
+  };
   return (
     <div
       className="grid grid-cols-1

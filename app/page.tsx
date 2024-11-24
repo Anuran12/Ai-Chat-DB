@@ -25,11 +25,19 @@ interface Folder {
   id: string;
   name: string;
 }
+interface File {
+  id: number;
+  name: string;
+  type: string;
+  size: string;
+  modifiedAt: string;
+}
 
 export default function Home() {
   const db = getFirestore(app);
   const { data: session } = useSession();
   const [folderList, setFolderList] = useState<Folder[]>([]);
+  const [fileList, setFileList] = useState<File[]>([]);
   const { refreshFolders } = useFolderContext();
 
   useEffect(() => {
@@ -38,6 +46,10 @@ export default function Home() {
         await getFolderList();
       };
       fetchFolders();
+      const fetchFiles = async () => {
+        await getFileList();
+      };
+      fetchFiles();
     }
   }, [session, refreshFolders]);
 
@@ -55,6 +67,22 @@ export default function Home() {
       setFolderList((folderList) => [...folderList, folderData]);
     });
   };
+  const getFileList = async () => {
+    setFileList([]);
+    const q = query(
+      collection(db, "files"),
+      where("parentFolderId", "==", null),
+      where("createdBy", "==", session?.user?.email)
+    );
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.id, " => ", doc.data());
+      const fileData = doc.data() as File;
+      setFileList((fileList) => [...fileList, fileData]);
+    });
+  };
   return (
     <>
       {session ? (
@@ -68,7 +96,7 @@ export default function Home() {
           <div className="grid grid-cols-4 w-full">
             <div className="col-span-3">
               <FolderList folderList={folderList} />
-              <FileList />
+              <FileList fileList={fileList} />
             </div>
             <div className="w-full h-[70vh] bg-[#010314]">
               Storage

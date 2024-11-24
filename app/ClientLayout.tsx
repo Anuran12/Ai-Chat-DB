@@ -3,7 +3,6 @@ import { ReactNode, useState } from "react";
 import { ShowToastContext, ToastMessage } from "@/context/ShowToastContext";
 import Toast from "@/components/Toast";
 import Sidebar from "@/components/Sidebar";
-import SessionWrapper from "@/components/SessionWrapper";
 import { FolderProvider } from "@/context/FolderContext";
 import { ParentFolderIdContext } from "@/context/ParentFolderIdContext";
 import Storage from "@/components/Storage/Storage";

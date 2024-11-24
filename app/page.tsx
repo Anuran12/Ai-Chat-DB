@@ -18,7 +18,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 interface Folder {

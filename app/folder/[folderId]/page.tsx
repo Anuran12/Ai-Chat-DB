@@ -40,11 +40,11 @@ export default function FolderDetails() {
   const pathname = usePathname();
   const name = searchParams.get("name");
   const id = pathname.split("/folder/")[1]?.split("?")[0];
-  const { parentFolderId, setParentFolderId } = useParentFolder();
+  const { setParentFolderId } = useParentFolder();
   const { data: session } = useSession();
   const [folderList, setFolderList] = useState<FolderData[]>([]);
   const [fileList, setFileList] = useState<File[]>([]);
-  const { showToastMsg, setShowToastMsg } = useToast();
+  const { setShowToastMsg } = useToast();
   const { refreshFolders } = useFolderContext();
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function FolderDetails() {
     });
   };
   const deleteFolder = async () => {
-    await deleteDoc(doc(db, "Folders", id)).then((resp) => {
+    await deleteDoc(doc(db, "Folders", id)).then(() => {
       setShowToastMsg({
         message: "Folder Deleted !",
         type: "success",

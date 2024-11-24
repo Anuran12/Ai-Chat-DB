@@ -23,7 +23,7 @@ export default function FileItem({ file }: FileItemProps) {
   const image = "/" + file.type + ".png";
   const { setShowToastMsg } = useToast();
   const deleteFile = async (file: File) => {
-    await deleteDoc(doc(db, "files", file.id.toString())).then((resp) => {
+    await deleteDoc(doc(db, "files", file.id.toString())).then(() => {
       setShowToastMsg({
         message: "File Deleted!!!",
         type: "success",
@@ -35,9 +35,9 @@ export default function FileItem({ file }: FileItemProps) {
       className="grid grid-cols-1
     md:grid-cols-2 justify-between
     cursor-pointer hover:bg-gray-100
-    p-3 rounded-md"
+    p-3 rounded-md group"
     >
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center group-hover:text-black">
         <Image src={image} alt="file-icon" width={26} height={20} />
         <h2
           className="text-[15px] truncate"
@@ -46,7 +46,7 @@ export default function FileItem({ file }: FileItemProps) {
           {file.name}
         </h2>
       </div>
-      <div className="grid grid-cols-3 place-content-start">
+      <div className="grid grid-cols-3 place-content-start group-hover:text-black">
         <h2 className="text-[15px]">
           {/* {moment(file.modifiedAt).format("MMMM DD, YYYY")} */}
           {moment(file.modifiedAt).format("MMMM DD, YYYY")}

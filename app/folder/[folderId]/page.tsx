@@ -1,7 +1,7 @@
 "use client";
 import { useParentFolder } from "@/context/ParentFolderIdContext";
 import { useSession } from "next-auth/react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -9,9 +9,14 @@ import {
   where,
   getDocs,
   getFirestore,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 import { app } from "@/Config/FirebaseConfig";
 import { useToast } from "@/context/ShowToastContext";
+import FolderList from "@/components/Folder/FolderList";
+import FileList from "@/components/File/FileList";
+import { useFolderContext } from "@/context/FolderContext";
 
 type FolderData = {
   id: string;
@@ -19,8 +24,17 @@ type FolderData = {
   createBy: string;
   parentFolderId: string | null;
 };
+interface File {
+  id: number;
+  name: string;
+  type: string;
+  size: number;
+  modifiedAt: string;
+  imageUrl: string;
+}
 
 export default function FolderDetails() {
+  const router = useRouter();
   const db = getFirestore(app);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -29,7 +43,23 @@ export default function FolderDetails() {
   const { parentFolderId, setParentFolderId } = useParentFolder();
   const { data: session } = useSession();
   const [folderList, setFolderList] = useState<FolderData[]>([]);
-  const { showToastMsg } = useToast();
+  const [fileList, setFileList] = useState<File[]>([]);
+  const { showToastMsg, setShowToastMsg } = useToast();
+  const { refreshFolders } = useFolderContext();
+
+  useEffect(() => {
+    setParentFolderId(id);
+    if (session?.user) {
+      const fetchFolders = async () => {
+        await getFolderList();
+      };
+      fetchFolders();
+      const fetchFiles = async () => {
+        await getFileList();
+      };
+      fetchFiles();
+    }
+  }, [session, refreshFolders]);
 
   const getFolderList = async () => {
     if (!session?.user?.email || !id) return;
@@ -58,60 +88,68 @@ export default function FolderDetails() {
       console.error("Error fetching folders:", error);
     }
   };
-  useEffect(() => {
-    setParentFolderId(id);
-    if (session || showToastMsg != null) {
-      setFolderList([]);
-      //   setFileList([]);
-      getFolderList();
-      // getFileList();
-    }
-  }, [id, session, showToastMsg]);
 
-  //   useEffect(() => {
-  //     if (session?.user?.email && id) {
-  //       getFolderList();
-  //     }
-  //   }, [session, id]);
+  const getFileList = async () => {
+    setFileList([]);
+    const q = query(
+      collection(db, "files"),
+      where("parentFolderId", "==", id),
+      where("createdBy", "==", session?.user?.email)
+    );
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.id, " => ", doc.data());
+      const fileData = doc.data() as File;
+      setFileList((fileList) => [...fileList, fileData]);
+    });
+  };
+  const deleteFolder = async () => {
+    await deleteDoc(doc(db, "Folders", id)).then((resp) => {
+      setShowToastMsg({
+        message: "Folder Deleted !",
+        type: "success",
+      });
+      router.back();
+    });
+  };
 
   return (
-    <div className="p-6">
-      <div className="space-y-4">
-        <div className="text-lg font-medium">Folder Details</div>
-        <div className="space-y-2">
-          <div className="flex items-center space-x-2">
-            <span className="font-medium">Name:</span>
-            <span>{name}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="font-medium">ID:</span>
-            <span>{id}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="font-medium">Parent Folder:</span>
-            <span>{parentFolderId || "Root"}</span>
-          </div>
-        </div>
+    <div className="p-5">
+      {/* <SearchBar/> */}
+      <h2 className="text-[20px] font-bold mt-5">
+        {name}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={() => deleteFolder()}
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-5 h-5 float-right text-red-500
+           hover:scale-110 transition-all cursor-pointer"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+          />
+        </svg>
+      </h2>
 
-        <div className="mt-6">
-          <div className="font-medium mb-3">Subfolders</div>
-          {folderList.length > 0 ? (
-            <div className="space-y-2">
-              {folderList.map((folder) => (
-                <div
-                  key={folder.id}
-                  className="p-3 bg-gray-800 rounded-lg flex justify-between items-center"
-                >
-                  <span>{folder.name}</span>
-                  <span className="text-gray-400 text-sm">ID: {folder.id}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-gray-400">No subfolders found</div>
-          )}
-        </div>
-      </div>
+      {folderList.length > 0 ? (
+        <FolderList folderList={folderList} isBig={false} />
+      ) : (
+        <h2
+          className="text-gray-400
+        text-[16px] mt-5"
+        >
+          No Folder Found
+        </h2>
+      )}
+
+      <FileList fileList={fileList} />
     </div>
   );
 }

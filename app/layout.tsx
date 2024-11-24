@@ -1,6 +1,7 @@
 import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
 import "./globals.css";
+import SessionWrapper from "@/components/SessionWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,10 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="antialiased">
-        <ClientLayout>{children}</ClientLayout>
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body className="antialiased">
+          <ClientLayout>{children}</ClientLayout>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

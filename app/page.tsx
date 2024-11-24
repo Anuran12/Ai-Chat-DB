@@ -29,8 +29,9 @@ interface File {
   id: number;
   name: string;
   type: string;
-  size: string;
+  size: number;
   modifiedAt: string;
+  imageUrl: string;
 }
 
 export default function Home() {

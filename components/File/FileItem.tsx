@@ -1,14 +1,17 @@
 import { app } from "@/Config/FirebaseConfig";
 import { useToast } from "@/context/ShowToastContext";
 import { deleteDoc, doc, getFirestore } from "firebase/firestore";
+import moment from "moment";
+import Image from "next/image";
 import React from "react";
 
 interface File {
   id: number;
   name: string;
   type: string;
-  size: string;
+  size: number;
   modifiedAt: string;
+  imageUrl: string;
 }
 
 interface FileItemProps {
@@ -30,30 +33,37 @@ export default function FileItem({ file }: FileItemProps) {
   return (
     <div
       className="grid grid-cols-1
-md:grid-cols-2 justify-between
-cursor-pointer hover:bg-gray-100 hover:text-black
-p-3 rounded-md"
+    md:grid-cols-2 justify-between
+    cursor-pointer hover:bg-gray-100
+    p-3 rounded-md"
     >
       <div className="flex gap-2 items-center">
-        <h2 className="text-[15px] truncate">{file.name}</h2>
+        <Image src={image} alt="file-icon" width={26} height={20} />
+        <h2
+          className="text-[15px] truncate"
+          onClick={() => window.open(file.imageUrl)}
+        >
+          {file.name}
+        </h2>
       </div>
       <div className="grid grid-cols-3 place-content-start">
         <h2 className="text-[15px]">
           {/* {moment(file.modifiedAt).format("MMMM DD, YYYY")} */}
-          {file.modifiedAt}
+          {moment(file.modifiedAt).format("MMMM DD, YYYY")}
         </h2>
 
         <h2 className="text-[15px]">
           {/* {(file.size / 1024 ** 2).toFixed(2) + " MB"} */}
-          {file.size}
+          {(file.size / 1024 ** 2).toFixed(2) + " MB"}
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            onClick={() => deleteFile(file)}
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-5 h-5 float-right text-red-500
-       hover:scale-110 transition-all"
+           hover:scale-110 transition-all"
           >
             <path
               strokeLinecap="round"

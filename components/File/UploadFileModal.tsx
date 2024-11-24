@@ -23,7 +23,6 @@ function UploadFileModal({ isOpen, onClose }: CreateFileModalProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const docId = Date.now();
   const db = getFirestore(app);
   const storage = getStorage(app);
 

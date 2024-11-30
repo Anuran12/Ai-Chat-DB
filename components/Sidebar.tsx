@@ -1,24 +1,106 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Logo from "@/public/Logo.png";
 import CreateFolderModal from "./Folder/CreateFolderModal";
 import UploadFileModal from "./File/UploadFileModal";
 
+interface ChatItem {
+  id: string;
+  title: string;
+  timestamp: string;
+}
+
 export default function Sidebar() {
+  const router = useRouter();
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState("files");
+  const [activeTab, setActiveTab] = useState(() => {
+    // Check if we're on the client side and localStorage is available
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("activeTab") || "files";
+    }
+    return "files";
+  });
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFileModalOpen, setIsFileModalOpen] = useState(false);
+  const [isRecentChatsOpen, setIsRecentChatsOpen] = useState(false);
+  const [isStarredChatsOpen, setIsStarredChatsOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("activeTab", activeTab);
+    }
+  }, [activeTab]);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === "chats") {
+      router.push("/chats/new"); // Redirect to chats page
+    } else if (tab === "files") {
+      router.push("/"); // Redirect to main/files page
+    }
+  };
 
   const handleNewFolder = () => {
     setIsModalOpen(true);
   };
+
   const handleNewFile = () => {
     setIsFileModalOpen(true);
   };
+
+  const handleNewChat = () => {
+    router.push("/chats/new"); // Redirect to new chat page
+  };
+
+  const recentChatsData = [
+    { id: "1", title: "React Project Discussion", timestamp: "2h ago" },
+    { id: "2", title: "Database Design", timestamp: "5h ago" },
+    { id: "3", title: "API Architecture", timestamp: "1d ago" },
+  ];
+
+  const starredChatsData = [
+    { id: "4", title: "Machine Learning Overview", timestamp: "3d ago" },
+    { id: "5", title: "Blockchain Concepts", timestamp: "1w ago" },
+  ];
+
+  // Add these new functions
+  const toggleRecentChats = () => {
+    setIsRecentChatsOpen(!isRecentChatsOpen);
+  };
+
+  const toggleStarredChats = () => {
+    setIsStarredChatsOpen(!isStarredChatsOpen);
+  };
+
+  const renderChatHistoryButton = (
+    chat: ChatItem,
+    type: "recent" | "starred"
+  ) => (
+    <button
+      key={chat.id}
+      className="w-full flex items-center justify-between p-2 hover:bg-white/10 rounded-lg text-sm"
+      onClick={() => router.push(`/chats/${chat.id}`)}
+    >
+      <div className="flex items-center gap-2 truncate">
+        {type === "starred" ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 text-yellow-400"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+          </svg>
+        ) : null}
+        <span className="truncate">{chat.title}</span>
+      </div>
+      <span className="text-xs text-gray-400">{chat.timestamp}</span>
+    </button>
+  );
 
   return (
     <>
@@ -39,7 +121,7 @@ export default function Sidebar() {
                       ? "bg-[#010314]"
                       : "hover:bg-[#1C1E26]/50"
                   }`}
-                  onClick={() => setActiveTab("chats")}
+                  onClick={() => handleTabChange("chats")}
                 >
                   <svg
                     width="25px"
@@ -73,7 +155,7 @@ export default function Sidebar() {
                       ? "bg-[#010314]"
                       : "hover:bg-[#1C1E26]/50"
                   }`}
-                  onClick={() => setActiveTab("files")}
+                  onClick={() => handleTabChange("files")}
                 >
                   <svg
                     width="25px"
@@ -109,7 +191,10 @@ export default function Sidebar() {
               >
                 {activeTab === "chats" ? (
                   <>
-                    <button className="w-full bg-[#4A90A4] hover:bg-[#4A90A4]/90 py-2 px-4 rounded-[50px] flex gap-2 items-center justify-center">
+                    <button
+                      onClick={handleNewChat}
+                      className="w-full bg-[#4A90A4] hover:bg-[#4A90A4]/90 py-2 px-4 rounded-[50px] flex gap-2 items-center justify-center"
+                    >
                       <svg
                         width="25px"
                         height="25px"
@@ -127,8 +212,72 @@ export default function Sidebar() {
                       <span className="font-semibold">New Chat</span>
                     </button>
                     <div className="space-y-2"></div>
+                    <div>
+                      <button
+                        onClick={toggleRecentChats}
+                        className="w-full flex items-center justify-between p-2 hover:bg-white/10 rounded-lg"
+                      >
+                        <span className="font-semibold">Recent Chats</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`h-5 w-5 transform transition-transform ${
+                            isRecentChatsOpen ? "rotate-180" : ""
+                          }`}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                      {isRecentChatsOpen && (
+                        <div className="space-y-1 mt-2">
+                          {recentChatsData.map((chat) =>
+                            renderChatHistoryButton(chat, "recent")
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="mt-4">
+                      <button
+                        onClick={toggleStarredChats}
+                        className="w-full flex items-center justify-between p-2 hover:bg-white/10 rounded-lg"
+                      >
+                        <span className="font-semibold">Starred Chats</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`h-5 w-5 transform transition-transform ${
+                            isStarredChatsOpen ? "rotate-180" : ""
+                          }`}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                      {isStarredChatsOpen && (
+                        <div className="space-y-1 mt-2">
+                          {starredChatsData.map((chat) =>
+                            renderChatHistoryButton(chat, "starred")
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </>
                 ) : (
+                  // Rest of the files section remains the same
                   <>
                     <button
                       onClick={handleNewFolder}

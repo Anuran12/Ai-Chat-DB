@@ -1,5 +1,6 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { ShowToastContext, ToastMessage } from "@/context/ShowToastContext";
 import Toast from "@/components/Toast";
 import Sidebar from "@/components/Sidebar";
@@ -16,6 +17,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const [showToastMsg, setShowToastMsg] = useState<ToastMessage | null>(null);
   const [parentFolderId, setParentFolderId] = useState<string | null>(null);
   const { data: session } = useSession();
+  const pathname = usePathname();
+
+  const isChatsRoute = pathname.includes("/chats");
 
   return (
     <FolderProvider>
@@ -29,16 +33,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 {session ? (
                   <>
                     <Sidebar />
-                    <div className="grid grid-cols-1 md:grid-cols-4 w-full">
-                      <div className="col-span-3">{children}</div>
-
-                      <div className=" order-first md:order-last h-screen relative">
-                        <div className="bg-[#010314] p-5 fixed top-0 right-0 rounded-[25px] m-3 h-[97%]">
-                          <Storage />
-                        </div>
+                    <div className="flex w-full">
+                      <div className={isChatsRoute ? "w-full" : "w-[75%]"}>
+                        {children}
                       </div>
-                    </div>
 
+                      {!isChatsRoute && (
+                        <div className="w-[25%] h-screen relative">
+                          <div className="bg-[#010314] p-5 rounded-[25px] m-3 h-[97%]">
+                            <Storage />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                     <Toast />
                   </>
                 ) : (

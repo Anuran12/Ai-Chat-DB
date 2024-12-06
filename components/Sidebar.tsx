@@ -7,6 +7,7 @@ import Logo from "@/public/Logo.png";
 import CreateFolderModal from "./Folder/CreateFolderModal";
 import UploadFileModal from "./File/UploadFileModal";
 import FolderTreeView from "./Folder/FolderTreeView";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 interface ChatItem {
   id: string;
@@ -29,6 +30,7 @@ export default function Sidebar() {
   const [isFileModalOpen, setIsFileModalOpen] = useState(false);
   const [isRecentChatsOpen, setIsRecentChatsOpen] = useState(false);
   const [isStarredChatsOpen, setIsStarredChatsOpen] = useState(false);
+  const [isTreeViewOpen, setIsTreeViewOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -77,6 +79,10 @@ export default function Sidebar() {
     setIsStarredChatsOpen(!isStarredChatsOpen);
   };
 
+  const toggleTreeView = () => {
+    setIsTreeViewOpen(!isTreeViewOpen);
+  };
+
   const renderChatHistoryButton = (
     chat: ChatItem,
     type: "recent" | "starred"
@@ -103,23 +109,12 @@ export default function Sidebar() {
     </button>
   );
 
-  const renderFolderNavigation = () => {
-    return (
-      <div className="mt-4 border-t border-gray-700 pt-4">
-        <div className="text-sm font-semibold mb-2 text-gray-400">Folders</div>
-        <div className="space-y-1 max-h-[40vh] overflow-y-auto">
-          {/* Folder tree structure */}
-          <FolderTreeView />
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
       {session ? (
-        <>
-          <div className=" w-[20%] h-[100vh] sticky top-0 flex flex-col items-center">
+        <div className="flex w-[20%]">
+          {/* Main Sidebar */}
+          <div className="w-full h-[100vh] sticky top-0 flex flex-col items-center z-20 bg-[#1c1c1e]">
             <div className="flex gap-5 items-center pt-3">
               <Image src={Logo} alt="Logo" height={35} />
               <h1 className="font-bold text-[1rem]">
@@ -439,10 +434,38 @@ export default function Sidebar() {
               isOpen={isFileModalOpen}
               onClose={() => setIsFileModalOpen(false)}
             />
-            {activeTab === "files" && renderFolderNavigation()}
+
+            <div className="absolute right-1 top-1/2 -translate-y-1/2">
+              <button
+                onClick={toggleTreeView}
+                className="bg-[#4A90A4] p-2 rounded-full hover:bg-[#4A90A4]/90 transition-all z-30"
+              >
+                {isTreeViewOpen ? (
+                  <ChevronLeftIcon className="w-4 h-4" />
+                ) : (
+                  <ChevronRightIcon className="w-4 h-4" />
+                )}
+              </button>
+            </div>
           </div>
-        </>
-      ) : null}
+
+          {/* Folder Tree View Panel */}
+          <div
+            className={`fixed left-[16%] top-0 h-full bg-[#010314] w-[15%] transform transition-transform duration-300 ease-in-out shadow-xl z-10 ${
+              isTreeViewOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-semibold">Folders</h2>
+              </div>
+              <FolderTreeView />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Logo from "@/public/Logo.png";
 import CreateFolderModal from "./Folder/CreateFolderModal";
 import UploadFileModal from "./File/UploadFileModal";
+import FolderTreeView from "./Folder/FolderTreeView";
 
 interface ChatItem {
   id: string;
@@ -101,6 +102,18 @@ export default function Sidebar() {
       <span className="text-xs text-gray-400">{chat.timestamp}</span>
     </button>
   );
+
+  const renderFolderNavigation = () => {
+    return (
+      <div className="mt-4 border-t border-gray-700 pt-4">
+        <div className="text-sm font-semibold mb-2 text-gray-400">Folders</div>
+        <div className="space-y-1 max-h-[40vh] overflow-y-auto">
+          {/* Folder tree structure */}
+          <FolderTreeView />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -426,11 +439,10 @@ export default function Sidebar() {
               isOpen={isFileModalOpen}
               onClose={() => setIsFileModalOpen(false)}
             />
+            {activeTab === "files" && renderFolderNavigation()}
           </div>
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 }

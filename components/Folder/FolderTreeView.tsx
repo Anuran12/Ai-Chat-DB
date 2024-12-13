@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   collection,
   query,
@@ -28,13 +28,7 @@ export default function FolderTreeView() {
   const router = useRouter();
   const db = getFirestore(app);
 
-  useEffect(() => {
-    if (session?.user?.email) {
-      fetchFolders();
-    }
-  }, [session]);
-
-  const fetchFolders = async () => {
+  const fetchFolders = useCallback(async () => {
     const q = query(
       collection(db, "Folders"),
       where("createBy", "==", session?.user?.email)
@@ -49,7 +43,13 @@ export default function FolderTreeView() {
     // Organize folders into tree structure
     const folderTree = buildFolderTree(foldersData);
     setFolders(folderTree);
-  };
+  }, [db, session?.user?.email]);
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      fetchFolders();
+    }
+  }, [session, fetchFolders]);
 
   const buildFolderTree = (flatFolders: FolderType[]): FolderType[] => {
     const folderMap = new Map<string, FolderType>();
@@ -94,6 +94,7 @@ export default function FolderTreeView() {
     router.push(`/folder/${folder.id}?name=${encodeURIComponent(folder.name)}`);
   };
 
+  // @ts-ignore
   const renderFolder = (folder: FolderType, level: number = 0) => {
     const isExpanded = expandedFolders.has(folder.id);
     const hasSubFolders = folder.subFolders && folder.subFolders.length > 0;

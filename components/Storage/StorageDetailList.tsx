@@ -22,7 +22,12 @@ type StorageItem = {
 interface FileData {
   type: string;
   size: number;
-  [key: string]: any;
+  createdBy?: string;
+  name: string;
+  id: string;
+  modifiedAt: string;
+  imageUrl?: string;
+  [key: string]: string | number | undefined;
 }
 
 export default function StorageDetailList() {

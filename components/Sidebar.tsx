@@ -132,7 +132,7 @@ export default function Sidebar() {
               isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
             } md:translate-x-0 fixed md:relative w-[80%] md:w-full h-screen transition-transform duration-300 ease-in-out z-40 bg-[#1c1c1e]`}
           >
-            <div className="flex gap-5 items-center pt-3">
+            <div className="flex gap-5 items-center justify-center pt-3">
               <Image src={Logo} alt="Logo" height={35} />
               <h1 className="font-bold text-[1rem]">
                 AI CHAT <span className="">DB</span>
@@ -468,7 +468,7 @@ export default function Sidebar() {
 
           {/* Folder Tree View Panel */}
           <div
-            className={`fixed left-0 md:left-[16%] top-0 h-full bg-[#010314] w-[85%] md:w-[15%] transform transition-transform duration-300 ease-in-out shadow-xl z-50 ${
+            className={`fixed left-0 md:left-[16%] top-0 h-full bg-[#010314] w-[85%] md:w-[15%] transform transition-transform duration-300 ease-in-out shadow-xl z-50 md:z-10 ${
               isTreeViewOpen ? "translate-x-0" : "-translate-x-full"
             }`}
           >

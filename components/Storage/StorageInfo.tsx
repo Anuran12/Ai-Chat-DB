@@ -82,13 +82,16 @@ export default function StorageInfo() {
     ((totalSizeUsed - imageSize) / totalStorageLimit) * 100;
 
   return (
-    <div className="mt-7">
-      <h2 className="text-[22px] font-bold">
+    <div className="mt-4 md:mt-7 px-2 md:px-0">
+      <h2 className="text-[18px] md:text-[22px] font-bold">
         {totalSizeUsed.toFixed(2)}
-        <span className="text-[14px] font-medium"> used of </span>
+        <span className="text-[12px] md:text-[14px] font-medium">
+          {" "}
+          used of{" "}
+        </span>
         {totalStorageLimit} MB
       </h2>
-      <div className="w-full bg-gray-200 h-2.5 flex">
+      <div className="w-full bg-gray-200 h-2 md:h-2.5 flex mt-2">
         {imageSize > 0 && (
           <div
             className="bg-blue-600 h-2.5"

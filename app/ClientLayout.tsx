@@ -29,18 +29,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ShowToastContext.Provider value={{ showToastMsg, setShowToastMsg }}>
           <html lang="en">
             <body className="antialiased">
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 {session ? (
                   <>
                     <Sidebar />
-                    <div className="flex w-full">
-                      <div className={isChatsRoute ? "w-full" : "w-[75%]"}>
+                    <div className="flex w-full flex-col md:flex-row">
+                      <div
+                        className={
+                          isChatsRoute ? "w-full" : "w-full md:w-[75%]"
+                        }
+                      >
                         {children}
                       </div>
 
                       {!isChatsRoute && (
-                        <div className="w-[25%] h-screen relative">
-                          <div className="bg-[#010314] p-5 rounded-[25px] m-3 h-[97%]">
+                        <div className="w-full md:w-[25%] h-auto md:h-screen relative">
+                          <div className="bg-[#010314] p-3 md:p-5 rounded-[25px] m-2 md:m-3 h-full">
                             <Storage />
                           </div>
                         </div>

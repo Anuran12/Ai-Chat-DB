@@ -31,29 +31,30 @@ export default function FileItem({ file }: FileItemProps) {
     });
   };
   return (
-    <div
-      className="grid grid-cols-1
-    md:grid-cols-2 justify-between
-    cursor-pointer hover:bg-gray-100
-    p-3 rounded-md group"
-    >
+    <div className="grid grid-cols-1 gap-2 md:gap-0 md:grid-cols-2 justify-between cursor-pointer hover:bg-gray-100 p-2 md:p-3 rounded-md group">
       <div className="flex gap-2 items-center group-hover:text-black">
-        <Image src={image} alt="file-icon" width={26} height={20} />
+        <Image
+          src={image}
+          alt="file-icon"
+          width={20}
+          height={16}
+          className="md:w-[26px] md:h-[20px]"
+        />
         <h2
-          className="text-[15px] truncate"
+          className="text-[13px] md:text-[15px] truncate"
           onClick={() => window.open(file.imageUrl)}
         >
           {file.name}
         </h2>
       </div>
-      <div className="grid grid-cols-3 place-content-start group-hover:text-black">
-        <h2 className="text-[15px]">
-          {/* {moment(file.modifiedAt).format("MMMM DD, YYYY")} */}
+      <div className="grid grid-cols-2 md:grid-cols-3 place-content-start group-hover:text-black text-[13px] md:text-[15px]">
+        <h2 className="hidden md:block">
           {moment(file.modifiedAt).format("MMMM DD, YYYY")}
         </h2>
-
-        <h2 className="text-[15px]">
-          {/* {(file.size / 1024 ** 2).toFixed(2) + " MB"} */}
+        <h2 className="md:hidden">
+          {moment(file.modifiedAt).format("MM/DD/YY")}
+        </h2>
+        <h2 className="flex items-center justify-between">
           {(file.size / 1024 ** 2).toFixed(2) + " MB"}
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -31,6 +31,7 @@ export default function Sidebar() {
   const [isRecentChatsOpen, setIsRecentChatsOpen] = useState(false);
   const [isStarredChatsOpen, setIsStarredChatsOpen] = useState(false);
   const [isTreeViewOpen, setIsTreeViewOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -112,9 +113,25 @@ export default function Sidebar() {
   return (
     <>
       {session ? (
-        <div className="flex w-[20%]">
+        <div className="flex w-full md:w-[20%]">
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden fixed top-4 left-4 z-50 bg-[#4A90A4] p-2 rounded-full"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <ChevronLeftIcon className="w-6 h-6" />
+            ) : (
+              <ChevronRightIcon className="w-6 h-6" />
+            )}
+          </button>
+
           {/* Main Sidebar */}
-          <div className="w-full h-[100vh] sticky top-0 flex flex-col items-center z-20 bg-[#1c1c1e]">
+          <div
+            className={`${
+              isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+            } md:translate-x-0 fixed md:relative w-[80%] md:w-full h-screen transition-transform duration-300 ease-in-out z-40 bg-[#1c1c1e]`}
+          >
             <div className="flex gap-5 items-center pt-3">
               <Image src={Logo} alt="Logo" height={35} />
               <h1 className="font-bold text-[1rem]">
@@ -462,6 +479,14 @@ export default function Sidebar() {
               <FolderTreeView />
             </div>
           </div>
+
+          {/* Overlay for mobile */}
+          {isMobileMenuOpen && (
+            <div
+              className="fixed inset-0 bg-black/50 z-30 md:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+          )}
         </div>
       ) : (
         <></>

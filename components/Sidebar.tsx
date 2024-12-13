@@ -468,13 +468,32 @@ export default function Sidebar() {
 
           {/* Folder Tree View Panel */}
           <div
-            className={`fixed left-[16%] top-0 h-full bg-[#010314] w-[15%] transform transition-transform duration-300 ease-in-out shadow-xl z-10 ${
+            className={`fixed left-0 md:left-[16%] top-0 h-full bg-[#010314] w-[85%] md:w-[15%] transform transition-transform duration-300 ease-in-out shadow-xl z-50 ${
               isTreeViewOpen ? "translate-x-0" : "-translate-x-full"
             }`}
           >
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold">Folders</h2>
+                <button
+                  onClick={toggleTreeView}
+                  className="md:hidden p-2 hover:bg-white/10 rounded-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
               <FolderTreeView />
             </div>

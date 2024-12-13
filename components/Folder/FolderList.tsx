@@ -47,7 +47,7 @@ export default function FolderList({
   );
   console.log(activeFolder);
   return (
-    <div className="p-5 mr-4 bg-[#010314] rounded-[30px]">
+    <div className="p-5 bg-[#010314] rounded-[30px]">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-[17px] font-bold">
           {isBig ? "Recent Folders" : "Folders"}

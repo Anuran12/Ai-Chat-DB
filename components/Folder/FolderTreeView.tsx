@@ -145,8 +145,85 @@ export default function FolderTreeView() {
   };
 
   return (
-    <div className="space-y-1">
-      {folders.map((folder) => renderFolder(folder))}
+    <div className="h-[calc(100vh-120px)] overflow-y-auto px-2">
+      <div className="flex flex-col space-y-2">
+        {folders.map((folder) => (
+          <div key={folder.id} className="w-full">
+            <div
+              className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer text-sm hover:bg-white/10 ${
+                selectedFolder === folder.id ? "bg-white/10" : ""
+              }`}
+              onClick={() => handleFolderClick(folder)}
+            >
+              <button
+                onClick={(e) => toggleFolder(e, folder.id)}
+                className="p-1 hover:bg-white/20 rounded-md"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 w-4 transition-transform ${
+                    expandedFolders.has(folder.id) ? "rotate-90" : ""
+                  }`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-[#4A90A4]"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
+                  clipRule="evenodd"
+                />
+                <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
+              </svg>
+              <span className="truncate max-w-[150px] md:max-w-[200px]">
+                {folder.name}
+              </span>
+            </div>
+            {expandedFolders.has(folder.id) && folder.subFolders && (
+              <div className="ml-4 mt-1 border-l border-white/10">
+                {folder.subFolders.map((subFolder) => (
+                  <div
+                    key={subFolder.id}
+                    className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer text-sm hover:bg-white/10 ${
+                      selectedFolder === subFolder.id ? "bg-white/10" : ""
+                    }`}
+                    onClick={() => handleFolderClick(subFolder)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-[#4A90A4]"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
+                        clipRule="evenodd"
+                      />
+                      <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
+                    </svg>
+                    <span className="truncate max-w-[130px] md:max-w-[180px]">
+                      {subFolder.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

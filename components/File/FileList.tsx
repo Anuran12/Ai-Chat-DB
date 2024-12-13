@@ -47,7 +47,7 @@ export default function FileList({ fileList }: FileListProps) {
   // ];
   return (
     <div
-      className="bg-[#010314] mt-5 p-5 mr-4
+      className="bg-[#010314] mt-5 p-5
   rounded-lg"
     >
       <h2 className="text-[18px] font-bold">Recent Files</h2>

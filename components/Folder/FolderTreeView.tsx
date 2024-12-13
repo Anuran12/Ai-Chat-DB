@@ -142,6 +142,7 @@ export default function FolderTreeView() {
       </div>
     );
   };
+  console.log(renderFolder);
 
   return (
     <div className="h-[calc(100vh-120px)] overflow-y-auto px-2">

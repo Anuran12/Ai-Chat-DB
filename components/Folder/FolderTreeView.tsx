@@ -93,8 +93,6 @@ export default function FolderTreeView() {
     setSelectedFolder(folder.id);
     router.push(`/folder/${folder.id}?name=${encodeURIComponent(folder.name)}`);
   };
-
-  // @ts-ignore
   const renderFolder = (folder: FolderType, level: number = 0) => {
     const isExpanded = expandedFolders.has(folder.id);
     const hasSubFolders = folder.subFolders && folder.subFolders.length > 0;

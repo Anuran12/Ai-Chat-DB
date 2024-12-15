@@ -11,7 +11,7 @@ export default function FolderItemSmall({ folder }: FolderItemProps) {
   return (
     <div
       className=" flex gap-3
-  hover:bg-gray-100
+  hover:bg-white/10
   p-2 rounded-md cursor-pointer"
     >
       <svg

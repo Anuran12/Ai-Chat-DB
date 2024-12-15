@@ -66,7 +66,7 @@ export default function FileItem({ file }: FileItemProps) {
   };
 
   return (
-    <div className="relative flex flex-col md:grid md:grid-cols-2 justify-between items-center hover:bg-gray-100 p-3 rounded-md group">
+    <div className="relative flex flex-col md:grid md:grid-cols-2 justify-between items-center hover:bg-white/10 p-3 rounded-md group">
       <div className="flex items-center gap-3 mb-2 md:mb-0">
         <div
           className={`p-1.5 rounded-lg ${
@@ -95,7 +95,7 @@ export default function FileItem({ file }: FileItemProps) {
         >
           {file.name}
         </h2>
-        <div className="absolute right-2 top-2">
+        <div className="">
           <StarButton
             itemId={file.id.toString()}
             itemType="file"
@@ -111,7 +111,7 @@ export default function FileItem({ file }: FileItemProps) {
         <div>{(file.size / 1024).toFixed(2)} KB</div>
         <button
           onClick={() => deleteFile(file)}
-          className="ml-2 p-1 hover:bg-red-50 rounded-full"
+          className="ml-2 p-1 hover:bg-white/10 w-fit rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

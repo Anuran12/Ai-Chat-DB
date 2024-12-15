@@ -13,9 +13,13 @@ import SessionLoader from "@/components/SessionLoader";
 interface RootLayoutProps {
   children: React.ReactNode;
 }
+type ToastMessage = {
+  message: string;
+  type: "success" | "error" | "info";
+} | null;
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [showToastMsg, setShowToastMsg] = useState<any>(null);
+  const [showToastMsg, setShowToastMsg] = useState<ToastMessage>(null);
   const [parentFolderId, setParentFolderId] = useState<string | null>(null);
   const { data: session, status } = useSession();
   const pathname = usePathname();

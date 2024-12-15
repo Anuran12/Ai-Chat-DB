@@ -12,10 +12,28 @@ import { app } from "@/Config/FirebaseConfig";
 import FolderList from "@/components/Folder/FolderList";
 import FileList from "@/components/File/FileList";
 
+interface Folder {
+  id: string;
+  name: string;
+  isStarred?: boolean;
+  createBy: string;
+}
+
+interface File {
+  id: number;
+  name: string;
+  type: string;
+  size: number;
+  modifiedAt: string;
+  imageUrl: string;
+  isStarred?: boolean;
+  createdBy: string;
+}
+
 export default function StarredPage() {
   const { data: session } = useSession();
-  const [starredFolders, setStarredFolders] = useState<any[]>([]);
-  const [starredFiles, setStarredFiles] = useState<any[]>([]);
+  const [starredFolders, setStarredFolders] = useState<Folder[]>([]);
+  const [starredFiles, setStarredFiles] = useState<File[]>([]);
   const db = getFirestore(app);
 
   useEffect(() => {
@@ -43,10 +61,16 @@ export default function StarredPage() {
     ]);
 
     setStarredFolders(
-      folderSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      folderSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Folder, "id">),
+      }))
     );
     setStarredFiles(
-      fileSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      fileSnapshot.docs.map((doc) => ({
+        id: Number(doc.id),
+        ...(doc.data() as Omit<File, "id">),
+      }))
     );
   };
 

@@ -24,7 +24,10 @@ import { useEffect, useState } from "react";
 interface Folder {
   id: string;
   name: string;
+  isStarred?: boolean;
+  createBy: string;
 }
+
 interface File {
   id: number;
   name: string;
@@ -32,6 +35,8 @@ interface File {
   size: number;
   modifiedAt: string;
   imageUrl: string;
+  isStarred?: boolean;
+  createdBy: string;
 }
 
 export default function Home() {

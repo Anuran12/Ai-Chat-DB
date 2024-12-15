@@ -96,6 +96,14 @@ export default function Sidebar() {
   const toggleTreeView = () => {
     setIsTreeViewOpen(!isTreeViewOpen);
   };
+  const starredbtn = () => {
+    router.push("/starred");
+    setActiveIndex(2);
+  };
+  const homebtn = () => {
+    router.push("/");
+    setActiveIndex(0);
+  };
 
   const renderChatHistoryButton = (
     chat: ChatItem,
@@ -375,7 +383,7 @@ export default function Sidebar() {
                     </button>
                     <div className="space-y-2">
                       <button
-                        onClick={() => setActiveIndex(0)}
+                        onClick={() => homebtn()}
                         className={`w-full flex items-center justify-start gap-2 rounded-lg p-2 text-sm hover:bg-white/5b ${
                           activeIndex == 0 ? "bg-[#4A90A4]/15" : ""
                         }`}
@@ -421,7 +429,7 @@ export default function Sidebar() {
                         <div className="flex items-center">Index/Pending</div>
                       </button>
                       <button
-                        onClick={() => setActiveIndex(2)}
+                        onClick={() => starredbtn()}
                         className={`w-full flex items-center justify-start gap-2 rounded-lg p-2 text-sm hover:bg-white/5b ${
                           activeIndex == 2 ? "bg-[#4A90A4]/15" : ""
                         }`}

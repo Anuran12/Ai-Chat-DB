@@ -63,6 +63,7 @@ export default function Home() {
     setFolderList([]);
     const q = query(
       collection(db, "Folders"),
+      where("parentFolderId", "==", null),
       where("createBy", "==", session?.user?.email)
     );
     const querySnapshot = await getDocs(q);

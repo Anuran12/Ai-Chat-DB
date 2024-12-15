@@ -1,25 +1,30 @@
 "use client";
-import { ReactNode, useState } from "react";
-import { usePathname } from "next/navigation";
-import { ShowToastContext, ToastMessage } from "@/context/ShowToastContext";
-import Toast from "@/components/Toast";
-import Sidebar from "@/components/Sidebar";
-import { FolderProvider } from "@/context/FolderContext";
-import { ParentFolderIdContext } from "@/context/ParentFolderIdContext";
-import Storage from "@/components/Storage/Storage";
 import { useSession } from "next-auth/react";
+import Sidebar from "@/components/Sidebar";
+import Storage from "@/components/Storage/Storage";
+import Toast from "@/components/Toast";
+import { useState } from "react";
+import { ShowToastContext } from "@/context/ShowToastContext";
+import { ParentFolderIdContext } from "@/context/ParentFolderIdContext";
+import { usePathname } from "next/navigation";
+import { FolderProvider } from "@/context/FolderContext";
+import SessionLoader from "@/components/SessionLoader";
 
 interface RootLayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [showToastMsg, setShowToastMsg] = useState<ToastMessage | null>(null);
+  const [showToastMsg, setShowToastMsg] = useState<any>(null);
   const [parentFolderId, setParentFolderId] = useState<string | null>(null);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const pathname = usePathname();
 
   const isChatsRoute = pathname.includes("/chats");
+
+  if (status === "loading") {
+    return <SessionLoader />;
+  }
 
   return (
     <FolderProvider>
@@ -27,38 +32,32 @@ export default function RootLayout({ children }: RootLayoutProps) {
         value={{ parentFolderId, setParentFolderId }}
       >
         <ShowToastContext.Provider value={{ showToastMsg, setShowToastMsg }}>
-          <html lang="en">
-            <body className="antialiased">
-              <div className="flex flex-col md:flex-row">
-                {session ? (
-                  <>
-                    <Sidebar />
-                    <div className="w-full md:w-[20%]"></div>
-                    <div className="flex w-full flex-col md:flex-row">
-                      <div
-                        className={
-                          isChatsRoute ? "w-full" : "w-full md:w-[75%]"
-                        }
-                      >
-                        {children}
-                      </div>
+          <div className="flex flex-col md:flex-row">
+            {session ? (
+              <>
+                <Sidebar />
+                <div className="w-full md:w-[20%]"></div>
+                <div className="flex w-full flex-col md:flex-row">
+                  <div
+                    className={isChatsRoute ? "w-full" : "w-full md:w-[75%]"}
+                  >
+                    {children}
+                  </div>
 
-                      {!isChatsRoute && (
-                        <div className="w-full md:w-[25%] h-auto md:h-screen relative">
-                          <div className="bg-[#010314] p-3 md:p-5 rounded-[25px] m-2 md:m-3 h-full">
-                            <Storage />
-                          </div>
-                        </div>
-                      )}
+                  {!isChatsRoute && (
+                    <div className="w-full md:w-[25%] h-auto md:h-screen relative">
+                      <div className="bg-[#010314] p-3 md:p-5 rounded-[25px] m-2 md:m-3 h-full">
+                        <Storage />
+                      </div>
                     </div>
-                    <Toast />
-                  </>
-                ) : (
-                  <>{children}</>
-                )}
-              </div>
-            </body>
-          </html>
+                  )}
+                </div>
+                <Toast />
+              </>
+            ) : (
+              children
+            )}
+          </div>
         </ShowToastContext.Provider>
       </ParentFolderIdContext.Provider>
     </FolderProvider>

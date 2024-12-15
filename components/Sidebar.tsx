@@ -443,15 +443,6 @@ export default function Sidebar() {
               </div>
             </div>
 
-            <CreateFolderModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-            />
-            <UploadFileModal
-              isOpen={isFileModalOpen}
-              onClose={() => setIsFileModalOpen(false)}
-            />
-
             <div className="absolute right-1 top-1/2 -translate-y-1/2">
               <button
                 onClick={toggleTreeView}
@@ -510,6 +501,14 @@ export default function Sidebar() {
       ) : (
         <></>
       )}
+      <CreateFolderModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+      <UploadFileModal
+        isOpen={isFileModalOpen}
+        onClose={() => setIsFileModalOpen(false)}
+      />
     </>
   );
 }

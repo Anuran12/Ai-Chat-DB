@@ -1,3 +1,4 @@
+import { useToast } from "@/context/ShowToastContext";
 import { useState } from "react";
 import { doc, updateDoc, getFirestore } from "firebase/firestore";
 import { app } from "@/Config/FirebaseConfig";
@@ -17,6 +18,7 @@ export default function StarButton({
 }: StarButtonProps) {
   const [loading, setLoading] = useState(false);
   const db = getFirestore(app);
+  const { setShowToastMsg } = useToast();
 
   const toggleStar = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -29,8 +31,18 @@ export default function StarButton({
         isStarred: !isStarred,
       });
       onStarChange(!isStarred);
+      setShowToastMsg({
+        message: !isStarred
+          ? "Item starred successfully!"
+          : "Item unstarred successfully!",
+        type: "success",
+      });
     } catch (error) {
       console.error("Error updating star status:", error);
+      setShowToastMsg({
+        message: "Failed to update star status",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }

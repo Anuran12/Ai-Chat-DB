@@ -33,6 +33,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 {session ? (
                   <>
                     <Sidebar />
+                    <div className="w-full md:w-[20%]"></div>
                     <div className="flex w-full flex-col md:flex-row">
                       <div
                         className={

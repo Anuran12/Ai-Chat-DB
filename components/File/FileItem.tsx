@@ -2,8 +2,9 @@ import { app } from "@/Config/FirebaseConfig";
 import { useToast } from "@/context/ShowToastContext";
 import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import StarButton from "../StarButton";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 interface File {
   id: number;
@@ -55,6 +56,7 @@ export default function FileItem({ file }: FileItemProps) {
   const db = getFirestore(app);
   const { setShowToastMsg } = useToast();
   const fileType = getFileType(file.type);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const deleteFile = async (file: File) => {
     await deleteDoc(doc(db, "files", file.id.toString())).then(() => {
@@ -66,69 +68,78 @@ export default function FileItem({ file }: FileItemProps) {
   };
 
   return (
-    <div className="relative flex flex-col md:grid md:grid-cols-2 justify-between items-center hover:bg-white/10 p-3 rounded-md group">
-      <div className="flex items-center gap-3 mb-2 md:mb-0">
-        <div
-          className={`p-1.5 rounded-lg ${
-            fileTypeIcons[fileType]?.background ||
-            fileTypeIcons.Others.background
-          }`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="black"
-            className="w-4 h-4"
+    <>
+      <ConfirmationModal
+        isOpen={showDeleteConfirmation}
+        onClose={() => setShowDeleteConfirmation(false)}
+        onConfirm={() => deleteFile(file)}
+        title="Delete File"
+        message={`Are you sure you want to delete "${file.name}"?`}
+      />
+      <div className="relative flex flex-col md:grid md:grid-cols-2 justify-between items-center hover:bg-white/10 p-3 rounded-md group">
+        <div className="flex items-center gap-3 mb-2 md:mb-0">
+          <div
+            className={`p-1.5 rounded-lg ${
+              fileTypeIcons[fileType]?.background ||
+              fileTypeIcons.Others.background
+            }`}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d={fileTypeIcons[fileType]?.path || fileTypeIcons.Others.path}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="black"
+              className="w-4 h-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d={fileTypeIcons[fileType]?.path || fileTypeIcons.Others.path}
+              />
+            </svg>
+          </div>
+          <h2
+            className="text-sm md:text-[15px] truncate flex-1"
+            onClick={() => window.open(file.imageUrl)}
+          >
+            {file.name}
+          </h2>
+          <div className="">
+            <StarButton
+              itemId={file.id.toString()}
+              itemType="file"
+              isStarred={file.isStarred || false}
+              onStarChange={(isStarred) => {
+                file.isStarred = isStarred;
+              }}
             />
-          </svg>
+          </div>
         </div>
-        <h2
-          className="text-sm md:text-[15px] truncate flex-1"
-          onClick={() => window.open(file.imageUrl)}
-        >
-          {file.name}
-        </h2>
-        <div className="">
-          <StarButton
-            itemId={file.id.toString()}
-            itemType="file"
-            isStarred={file.isStarred || false}
-            onStarChange={(isStarred) => {
-              file.isStarred = isStarred;
-            }}
-          />
+        <div className="grid grid-cols-3 text-sm">
+          <div>{moment(file.modifiedAt).format("MMMM DD, YYYY")}</div>
+          <div>{(file.size / 1024).toFixed(2)} KB</div>
+          <button
+            onClick={() => setShowDeleteConfirmation(true)}
+            className="ml-2 p-1 hover:bg-white/10 w-fit rounded-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5 text-red-500 hover:scale-110 transition-all"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+              />
+            </svg>
+          </button>
         </div>
       </div>
-      <div className="grid grid-cols-3 text-sm">
-        <div>{moment(file.modifiedAt).format("MMMM DD, YYYY")}</div>
-        <div>{(file.size / 1024).toFixed(2)} KB</div>
-        <button
-          onClick={() => deleteFile(file)}
-          className="ml-2 p-1 hover:bg-white/10 w-fit rounded-full"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-5 h-5 text-red-500 hover:scale-110 transition-all"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
+    </>
   );
 }

@@ -17,6 +17,7 @@ import { useToast } from "@/context/ShowToastContext";
 import FolderList from "@/components/Folder/FolderList";
 import FileList from "@/components/File/FileList";
 import { useFolderContext } from "@/context/FolderContext";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 type FolderData = {
   id: string;
@@ -46,6 +47,7 @@ export default function FolderDetails() {
   const [fileList, setFileList] = useState<File[]>([]);
   const { setShowToastMsg } = useToast();
   const { refreshFolders } = useFolderContext();
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   useEffect(() => {
     setParentFolderId(id);
@@ -139,7 +141,7 @@ export default function FolderDetails() {
             Start Chat
           </button>
           <button
-            onClick={() => deleteFolder()}
+            onClick={() => setShowDeleteConfirmation(true)}
             className="text-red-500 hover:scale-110 transition-all"
           >
             <svg
@@ -165,6 +167,13 @@ export default function FolderDetails() {
         <h2 className="text-gray-400 text-[16px] mt-5">No Folder Found</h2>
       )}
       <FileList fileList={fileList} />
+      <ConfirmationModal
+        isOpen={showDeleteConfirmation}
+        onClose={() => setShowDeleteConfirmation(false)}
+        onConfirm={() => deleteFolder()}
+        title="Delete Folder"
+        message={`Are you sure you want to delete "${name}"? This will delete all files and subfolders within it.`}
+      />
     </div>
   );
 }

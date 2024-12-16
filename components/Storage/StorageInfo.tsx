@@ -64,12 +64,15 @@ export default function StorageInfo() {
 
       querySnapshot.forEach((doc) => {
         const fileData = doc.data() as File;
-        total += fileData.size;
+        if (fileData.size) {
+          total += fileData.size;
+        }
         files.push(fileData);
       });
 
       setFileList(files);
-      setTotalSizeUsed(Number((total / 1024 ** 2).toFixed(2)));
+      const calculatedSize = Number((total / 1024 ** 2).toFixed(2)) || 0;
+      setTotalSizeUsed(calculatedSize);
     } catch (error) {
       console.error("Error fetching files:", error);
     }

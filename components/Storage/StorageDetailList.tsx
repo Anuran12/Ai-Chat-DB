@@ -55,6 +55,7 @@ export default function StorageDetailList() {
         Images: { files: [] as FileData[], size: 0 },
         Videos: { files: [] as FileData[], size: 0 },
         Documents: { files: [] as FileData[], size: 0 },
+        Links: { files: [] as FileData[], size: 0 },
         Others: { files: [] as FileData[], size: 0 },
       };
 
@@ -69,6 +70,10 @@ export default function StorageDetailList() {
         } else if (["pdf", "doc", "docx", "txt"].includes(type)) {
           stats.Documents.files.push(file);
           stats.Documents.size += file.size;
+        } else if (type.startsWith("link-")) {
+          // Modified this line to check for all link types
+          stats.Links.files.push(file);
+          stats.Links.size += file.size || 0; // Added fallback for size
         } else {
           stats.Others.files.push(file);
           stats.Others.size += file.size;
@@ -93,6 +98,12 @@ export default function StorageDetailList() {
           totalFile: stats.Documents.files.length,
           size: `${(stats.Documents.size / (1024 * 1024)).toFixed(2)} MB`,
           logo: "M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z",
+        },
+        {
+          type: "Links",
+          totalFile: stats.Links.files.length,
+          size: `${(stats.Links.size / (1024 * 1024)).toFixed(2)} MB`,
+          logo: "M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244", // Link icon path
         },
         {
           type: "Others",

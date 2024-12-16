@@ -27,15 +27,37 @@ function UploadFileModal({ isOpen, onClose }: CreateFileModalProps) {
   const storage = getStorage(app);
 
   const validateFile = (file: File): boolean => {
-    const allowedTypes = [
-      "image/png",
-      "image/jpeg",
-      "image/gif",
-      "image/svg+xml",
-    ];
-    const maxFileSize = 1 * 1024 * 1024; // 1MB
+    const allowedTypes = {
+      // Documents
+      "application/pdf": true,
+      "application/msword": true,
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        true,
+      "text/csv": true,
+      "text/plain": true,
+      "text/markdown": true,
+      "application/vnd.ms-powerpoint": true,
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+        true,
+      "application/epub+zip": true,
+      "text/html": true,
+      "application/vnd.oasis.opendocument.text": true,
 
-    if (!allowedTypes.includes(file.type)) {
+      // Media
+      "video/mp4": true,
+      "video/x-msvideo": true,
+      "video/quicktime": true,
+      "audio/mpeg": true,
+      "audio/wav": true,
+
+      // Images
+      "image/jpeg": true,
+      "image/png": true,
+      "image/gif": true,
+    };
+    const maxFileSize = 5 * 1024 * 1024; // 1MB
+
+    if (!allowedTypes[file.type as keyof typeof allowedTypes]) {
       setShowToastMsg({ message: "Unsupported file type.", type: "error" });
       return false;
     }
@@ -196,7 +218,10 @@ function UploadFileModal({ isOpen, onClose }: CreateFileModalProps) {
                     drag and drop
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    PNG, JPG, GIF, SVG (MAX. 1MB)
+                    Supported files: Documents (PDF, DOC, DOCX, etc), Media
+                    (MP4, MP3, etc), Images (PNG, JPG, etc)
+                    <br />
+                    Max size: 5MB
                   </p>
                 </div>
               )}

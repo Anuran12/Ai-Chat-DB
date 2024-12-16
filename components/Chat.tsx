@@ -51,7 +51,7 @@ const ChatInterface: React.FC = () => {
     <div className="flex flex-col h-[calc(100vh-120px)] md:h-full w-full bg-[radial-gradient(160%_85%_at_50%_25%,rgba(0,0,0,0)_10%,rgba(0,0,0,0.05)_35%,rgba(74,144,164,0.2)_55%,rgba(85,155,170,0.4)_65%,rgba(100,170,180,0.7)_75%,rgba(150,200,210,0.9)_85%,rgba(200,230,240,1)_95%,rgba(255,255,255,1)_100%)] rounded-[25px] md:rounded-[50px] items-center justify-between p-2 md:p-4">
       <div
         ref={chatMessagesRef}
-        className="flex-grow w-full overflow-y-auto px-2 md:p-4 mb-4"
+        className="flex-grow w-full overflow-y-auto px-2 md:p-4 mb-4 custom-scrollbar"
         style={{ maxHeight: "calc(100vh - 200px)" }}
       >
         {messages.map((message, index) => (

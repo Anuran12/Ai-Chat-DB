@@ -124,6 +124,7 @@ function UploadFileModal({ isOpen, onClose }: CreateFileModalProps) {
       setLinkUrl("");
       onClose();
     } catch (error) {
+      console.error("Error adding link", error);
       setShowToastMsg({ message: "Error adding link", type: "error" });
     }
   };
